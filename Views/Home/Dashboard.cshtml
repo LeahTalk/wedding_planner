@@ -1,0 +1,34 @@
+@model List<WeddingPlanner.Models.Wedding>
+<h1>Welcome to the Wedding Planner</h1>
+<a href = '/logout'>Logout</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Wedding</th>
+      <th scope="col">Date</th>
+      <th scope="col">Guests</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      @{
+          foreach(Wedding wedding in Model) {
+            <tr>
+                <td><a href = '/Detail/@wedding.WeddingId'>@wedding.NameOne & @wedding.NameTwo</a></td>
+                <td>@wedding.Date</td>
+                <td>@wedding.Attendees.Count</td>
+                @if(@ViewBag.user.UserId == @wedding.UserId) {
+                    <td><a href = '/delete/@wedding.WeddingId'>Delete</a></td>
+                }
+                else if (@ViewBag.notAttending.Contains(@wedding)) {
+                    <td><a href = '/rsvp/@wedding.WeddingId'>RSVP</a></td>
+                }
+                else {
+                    <td><a href = '/cancel/@wedding.WeddingId'>Cancel RSVP</a></td>
+                }
+            </tr>
+          }
+      }
+  </tbody>
+</table>
+<a href = '/wedding/new' class = 'btn btn-primary'>New Wedding</a>

@@ -1,0 +1,11 @@
+@model WeddingPlanner.Models.Wedding
+<h1>@Model.NameOne & @Model.NameTwo</h1>
+<a href = '/dashboard'>Dashboard</a>
+<a href = '/logout'>Logout</a>
+<p>Date: @Model.Date</p>
+<h4>Guests: </h4>
+@{
+    foreach(Attendee attend in Model.Attendees) {
+        <p>@attend.User.FirstName @attend.User.LastName</p>
+    }
+}
